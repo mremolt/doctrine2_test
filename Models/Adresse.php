@@ -1,4 +1,5 @@
 <?php
+namespace Models;
 
 /**
  * @Entity
@@ -20,6 +21,10 @@ class Adresse
     /** @Column(type="string", length=100) */
     private $ort;
 
+    /** @ManyToOne(targetEntity="Person", inversedBy="adressen") */
+    private $person;
+
+
     public function getId() {
         return $this->id;
     }
@@ -30,6 +35,7 @@ class Adresse
 
     public function setStrasse($strasse) {
         $this->strasse = $strasse;
+        return $this;
     }
 
     public function getHausnummer() {
@@ -38,6 +44,7 @@ class Adresse
 
     public function setHausnummer($hausnummer) {
         $this->hausnummer = $hausnummer;
+        return $this;
     }
 
     public function getPlz() {
@@ -46,6 +53,7 @@ class Adresse
 
     public function setPlz($plz) {
         $this->plz = $plz;
+        return $this;
     }
 
     public function getOrt() {
@@ -54,5 +62,23 @@ class Adresse
 
     public function setOrt($ort) {
         $this->ort = $ort;
+        return $this;
+    }
+
+    public function getPerson() {
+        return $this->person;
+    }
+
+    public function setPerson(Person $person) {
+        $person->addAdresse($this);
+        $this->person = $person;
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->getStrasse() . ' '
+                . $this->getHausnummer() . ', '
+                . $this->getPlz() . ' '
+                . $this->getOrt();
     }
 }

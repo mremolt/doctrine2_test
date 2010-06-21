@@ -20,6 +20,10 @@ class Person
     private $geburtstag;
     /** @Column(type="decimal", nullable=true) */
     private $gewicht;
+    
+    /** @OneToMany(targetEntity="Adresse", mappedBy="person")*/
+    private $adressen;
+
 
     public function getId() {
         return $this->id;
@@ -59,6 +63,14 @@ class Person
     public function setGewicht($gewicht) {
         $this->gewicht = $gewicht;
         return $this;
+    }
+
+    public function getAdressen() {
+        return $this->adressen;
+    }
+
+    public function addAdresse(Adresse $adresse) {
+        $this->adressen[] = $adresse;
     }
 
     public function __toString() {
