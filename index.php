@@ -23,6 +23,13 @@ $em->persist($a1);
 $em->flush();
 
 
-$adressen = $p1->getAdressen();
-echo $p1;
+// hole die Person mit id 1 aus der Datenbank
+$personen = $em->createQueryBuilder()
+        ->select('p')->from('Models\Person', 'p')->where('p.id = 1')
+        ->getQuery()->getResult();
+
+$person = $personen[0];
+echo $person;
+
+$adressen = $person->getAdressen();
 echo $adressen[0];
