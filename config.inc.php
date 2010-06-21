@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 use Doctrine\Common\ClassLoader,
     Doctrine\ORM\Configuration,
     Doctrine\ORM\EntityManager,
@@ -23,9 +26,11 @@ $config->setProxyNamespace('Proxies');
 
 $connectionOptions = array(
     'driver' => 'pdo_mysql',
+    'dbname' => 'doctrine2_test',
     'user' => 'root',
     'password' => '',
-    'host' => 'localhost'
+    'host' => 'localhost',
+    'driverOptions' => array( PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION )
 );
 
 $em = EntityManager::create($connectionOptions, $config);
