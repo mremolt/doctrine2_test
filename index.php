@@ -22,11 +22,13 @@ $em->persist($a1);
 
 //$em->flush();
 
+// hole die Person mit id 1 per DQL aus der Datenbank
 
-// hole die Person mit id 1 aus der Datenbank
+
+// hole die Person mit id 1 per DQL aus der Datenbank
 $personen = $em->createQueryBuilder()
         ->select('p')->from('Models\Person', 'p')->where('p.id = 1')
-        ->getQuery()->getResult();
+        ->getQuery()->execute();
 
 $person = $personen[0];
 echo $person;
