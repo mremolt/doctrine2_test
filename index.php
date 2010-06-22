@@ -20,7 +20,7 @@ $a1->setStrasse('Nordostpark')
 
 $em->persist($a1);
 
-$em->flush();
+//$em->flush();
 
 
 // hole die Person mit id 1 aus der Datenbank
