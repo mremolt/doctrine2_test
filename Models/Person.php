@@ -51,6 +51,15 @@ class Person
         return $this->geburtstag;
     }
 
+    /**
+     * Setter für $geburtstag
+     * 
+     * Da für das Attribut der Doctrine-Typ "date" festgelegt wurde, müssen
+     * wir dafür sorgen, dass hier ein DateTime übergeben wird.
+     * 
+     * @param \DateTime $geburtstag
+     * @return Person 
+     */
     public function setGeburtstag(\DateTime $geburtstag) {
         $this->geburtstag = $geburtstag;
         return $this;
