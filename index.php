@@ -12,7 +12,6 @@ $p1->setVorname('Arthur')
 
 $em->persist($p1);
 
-
 $a1 = new Adresse();
 $a1->setStrasse('Nordostpark')
     ->setHausnummer('7')
@@ -22,13 +21,31 @@ $a1->setStrasse('Nordostpark')
 
 $em->persist($a1);
 
+$em->flush();
+
+// hole die Person mit id 1 per finder-Methode aus der Datenbank
+$person1 = $em->find('Models\Person', 1);
+echo $person1;
+
 // hole die Person mit id 1 per DQL aus der Datenbank
-$personen = $em->createQueryBuilder()
-        ->select('p')->from('Models\Person', 'p')->where('p.id = 1')
-        ->getQuery()->execute();
+$query = $em->createQuery("SELECT p, a FROM Models\Person p LEFT JOIN p.adressen a WHERE p.id = 1");
+$query->useResultCache(true);
+$personen2 = $query->execute();
+$person2 = $personen2[0];
 
-$person = $personen[0];
-echo $person;
+echo $person2;
 
-$adressen = $person->getAdressen();
+// hole die Person mit id 1 per QueryBuilder aus der Datenbank
+$query = $em->createQueryBuilder()
+        ->select('p, a')->from('Models\Person', 'p')->where('p.id = 1')
+        ->leftJoin('p.adressen', 'a')
+        ->getQuery();
+
+$query->useResultCache(true);
+$personen3 = $query->execute();
+
+$person3 = $personen3[0];
+echo $person3;
+
+$adressen = $person3->getAdressen();
 echo $adressen[0];

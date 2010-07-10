@@ -7,8 +7,7 @@ ini_set('display_errors', 1);
 use Doctrine\Common\ClassLoader,
     Doctrine\ORM\Configuration,
     Doctrine\ORM\EntityManager,
-    Doctrine\Common\Cache\ApcCache,
-    Entities\User, Entities\Address;
+    Doctrine\Common\Cache\ApcCache;
 
 // Die Autoloader-Klasse von Doctrine laden
 require 'lib/Doctrine/Common/ClassLoader.php';
@@ -33,7 +32,6 @@ $config->setMetadataDriverImpl($driverImpl);
 $config->setProxyDir(__DIR__ . '/Proxies');
 $config->setProxyNamespace('Proxies');
 
-
 // Wenn in PHP die Erweiterung APC (http://php.net/manual/de/book.apc.php)
 // installiert ist, kann der Doctrine-Cache sie verwenden.
 // Doctrine nutzt Caching sehr agressiv, wenn möglich also einschalten!
@@ -41,7 +39,8 @@ $config->setProxyNamespace('Proxies');
 $cache = new \Doctrine\Common\Cache\ApcCache();
 $config->setMetadataCacheImpl($cache);
 $config->setQueryCacheImpl($cache);
- */
+$config->setResultCacheImpl($cache);
+*/
 
 // Die eigentliche Datenbankverbindung wird in Form eines Arrays angelegt,
 // wobei die Schlüssel wie beim Erzeugen einer PDO-Instanz heißen. Das Array

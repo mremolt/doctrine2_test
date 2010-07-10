@@ -24,7 +24,6 @@ class Person
     /** @OneToMany(targetEntity="Adresse", mappedBy="person")*/
     private $adressen;
 
-
     public function getId() {
         return $this->id;
     }
@@ -86,5 +85,4 @@ class Person
         return $this->getVorname() . ' ' . $this->getNachname()
                 . ' (' . $this->getId() . ')';
     }
-
 }
